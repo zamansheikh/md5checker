@@ -1,0 +1,36 @@
+# Binaries
+/bin/
+*.exe
+md5checker
+md5checker-*
+
+# Go build artifacts
+*.o
+*.a
+*.so
+*.dll
+
+# Test and coverage files
+*.test
+*.out
+coverage.txt
+
+# Checksum database
+checksums.json.gz
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log

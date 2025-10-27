@@ -1,0 +1,152 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on version tags like v1.0.0, v2.1.3, etc.
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Multi-Platform Binaries
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Extract version from version.go
+        id: get_version
+        run: |
+          VERSION=$(grep 'const Version = ' version.go | sed 's/.*"\(.*\)".*/\1/')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+
+      - name: Build for all platforms
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
+        run: |
+          # Create bin directory
+          mkdir -p bin
+          
+          # Build for Windows (64-bit)
+          echo "Building for Windows (amd64)..."
+          GOOS=windows GOARCH=amd64 go build -o "bin/md5checker-windows-amd64_${VERSION}.exe"
+          
+          # Build for Linux (64-bit)
+          echo "Building for Linux (amd64)..."
+          GOOS=linux GOARCH=amd64 go build -o "bin/md5checker-linux-amd64_${VERSION}"
+          
+          # Build for Linux (ARM64)
+          echo "Building for Linux (arm64)..."
+          GOOS=linux GOARCH=arm64 go build -o "bin/md5checker-linux-arm64_${VERSION}"
+          
+          # Build for macOS (Intel)
+          echo "Building for macOS (amd64)..."
+          GOOS=darwin GOARCH=amd64 go build -o "bin/md5checker-darwin-amd64_${VERSION}"
+          
+          # Build for macOS (Apple Silicon)
+          echo "Building for macOS (arm64)..."
+          GOOS=darwin GOARCH=arm64 go build -o "bin/md5checker-darwin-arm64_${VERSION}"
+          
+          # Make Linux/macOS binaries executable
+          chmod +x "bin/md5checker-linux-amd64_${VERSION}"
+          chmod +x "bin/md5checker-linux-arm64_${VERSION}"
+          chmod +x "bin/md5checker-darwin-amd64_${VERSION}"
+          chmod +x "bin/md5checker-darwin-arm64_${VERSION}"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            ## MD5 Hash Checker - Content-Addressable File Integrity Tool
+            
+            ### Features
+            - Add new files to checksum database
+            - Regenerate all checksums for fresh baseline
+            - Verify file integrity against stored checksums
+            - Detect modifications, moves, renames, additions, and deletions
+            - Compressed database storage (checksums.json.gz)
+            
+            ### Downloads
+            Choose the appropriate binary for your platform:
+            - **Windows (64-bit)**: md5checker-windows-amd64_${{ steps.get_version.outputs.version }}.exe
+            - **Linux (64-bit)**: md5checker-linux-amd64_${{ steps.get_version.outputs.version }}
+            - **Linux (ARM64)**: md5checker-linux-arm64_${{ steps.get_version.outputs.version }} (Raspberry Pi, etc.)
+            - **macOS (Intel)**: md5checker-darwin-amd64_${{ steps.get_version.outputs.version }}
+            - **macOS (Apple Silicon)**: md5checker-darwin-arm64_${{ steps.get_version.outputs.version }} (M1/M2/M3)
+            
+            ### Installation
+            1. Download the binary for your platform
+            2. On Linux/macOS: `chmod +x md5checker-*`
+            3. Run the executable
+            
+            ### Developed by
+            **Md. Shamsuzzaman**
+            - GitHub: [@zamansheikh](https://github.com/zamansheikh)
+            - Facebook: [zamansheikh.404](https://facebook.com/zamansheikh.404)
+          draft: false
+          prerelease: false
+
+      - name: Upload Windows Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/md5checker-windows-amd64_${{ steps.get_version.outputs.version }}.exe
+          asset_name: md5checker-windows-amd64_${{ steps.get_version.outputs.version }}.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload Linux AMD64 Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/md5checker-linux-amd64_${{ steps.get_version.outputs.version }}
+          asset_name: md5checker-linux-amd64_${{ steps.get_version.outputs.version }}
+          asset_content_type: application/octet-stream
+
+      - name: Upload Linux ARM64 Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/md5checker-linux-arm64_${{ steps.get_version.outputs.version }}
+          asset_name: md5checker-linux-arm64_${{ steps.get_version.outputs.version }}
+          asset_content_type: application/octet-stream
+
+      - name: Upload macOS Intel Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/md5checker-darwin-amd64_${{ steps.get_version.outputs.version }}
+          asset_name: md5checker-darwin-amd64_${{ steps.get_version.outputs.version }}
+          asset_content_type: application/octet-stream
+
+      - name: Upload macOS Apple Silicon Binary
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/md5checker-darwin-arm64_${{ steps.get_version.outputs.version }}
+          asset_name: md5checker-darwin-arm64_${{ steps.get_version.outputs.version }}
+          asset_content_type: application/octet-stream

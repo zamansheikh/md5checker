@@ -2,9 +2,10 @@ module md5checker
 
 go 1.25.3
 
+require github.com/cheggaaa/pb/v3 v3.1.7
+
 require (
 	github.com/VividCortex/ewma v1.2.0 // indirect
-	github.com/cheggaaa/pb/v3 v3.1.7 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

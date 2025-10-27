@@ -9,6 +9,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/cheggaaa/pb/v3"
 )
 
 type Result struct {
@@ -83,9 +85,23 @@ func TestMD5Hashes() {
 		return nil
 	})
 
+	fmt.Printf("Found %d files to verify...\n\n", len(filesToProcess))
+
+	// Initialize progress bar for hashing
+	fmt.Println("Computing checksums for verification...")
+	hashBar := pb.StartNew(len(filesToProcess))
+	hashBar.SetTemplate(`{{ green "Hashing:" }} {{ bar . "<" "=" (cycle . "↖" "↗" "↘" "↙" ) "." ">"}} {{percent . }} {{counters . }} {{speed . "%s files/sec" }} {{ "ETA:" }} {{rtime . "%s"}}`)
+	hashBar.SetWidth(80)
+
 	for _, filePath := range filesToProcess {
+		fileRelativePath, _ := filepath.Rel(baseLocationPath, filePath)
+
+		// Update progress bar with current file
+		hashBar.Set("prefix", fmt.Sprintf("📄 %s", truncatePathVerify(fileRelativePath, 50)))
+
 		file, err := os.Open(filePath)
 		if err != nil {
+			hashBar.Increment()
 			continue
 		}
 		defer file.Close()
@@ -94,9 +110,14 @@ func TestMD5Hashes() {
 		io.Copy(hash, file)
 		fileContentHash := fmt.Sprintf("%x", hash.Sum(nil))
 
-		fileRelativePath, _ := filepath.Rel(baseLocationPath, filePath)
 		diskFiles[fileRelativePath] = fileContentHash
+		hashBar.Increment()
 	}
+
+	hashBar.Finish()
+	fmt.Println()
+
+	fmt.Println("Analyzing differences...")
 
 	results := map[string][]Result{
 		"OK":       {},
@@ -280,4 +301,18 @@ func printResults(category string, results []Result, _ string) {
 			fmt.Printf("    New path(s): %s\n", strings.Join(r.NewPaths, ", "))
 		}
 	}
+}
+
+// truncatePathVerify truncates a file path to a maximum length for display
+func truncatePathVerify(path string, maxLen int) string {
+	if len(path) <= maxLen {
+		return path
+	}
+	// Show beginning and end of path
+	if maxLen < 10 {
+		return path[:maxLen]
+	}
+	prefixLen := (maxLen - 3) / 2
+	suffixLen := maxLen - 3 - prefixLen
+	return path[:prefixLen] + "..." + path[len(path)-suffixLen:]
 }

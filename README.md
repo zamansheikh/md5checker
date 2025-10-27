@@ -31,7 +31,7 @@ A fast, efficient, and user-friendly file integrity verification tool that uses 
 =======================================
          MD5 Hash Checker
       (Content-Addressable)
-         Version v1.0.0
+         Version v1.1.0
 =======================================
   Developed by Md. Shamsuzzaman
   GitHub: github.com/zamansheikh
@@ -60,11 +60,11 @@ Download the latest release for your platform from the [Releases](https://github
 
 | Platform | Binary |
 |----------|--------|
-| Windows (64-bit) | `md5checker-windows-amd64_v1.0.0.exe` |
-| Linux (64-bit) | `md5checker-linux-amd64_v1.0.0` |
-| Linux (ARM64) | `md5checker-linux-arm64_v1.0.0` |
-| macOS (Intel) | `md5checker-darwin-amd64_v1.0.0` |
-| macOS (Apple Silicon) | `md5checker-darwin-arm64_v1.0.0` |
+| Windows (64-bit) | `md5checker-windows-amd64_v1.1.0.exe` |
+| Linux (64-bit) | `md5checker-linux-amd64_v1.1.0` |
+| Linux (ARM64) | `md5checker-linux-arm64_v1.1.0` |
+| macOS (Intel) | `md5checker-darwin-amd64_v1.1.0` |
+| macOS (Apple Silicon) | `md5checker-darwin-arm64_v1.1.0` |
 
 **Linux/macOS users:** Make the binary executable
 ```bash

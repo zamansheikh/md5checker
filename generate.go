@@ -11,6 +11,8 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/cheggaaa/pb/v3"
 )
 
 type PathEntry struct {
@@ -99,29 +101,41 @@ func NewMD5Hashes(regenerateAll bool) {
 
 	md5Pattern := regexp.MustCompile("^[a-f0-9]{32}$")
 
+	// Initialize progress bar
+	fmt.Println("\nProcessing files...")
+	bar := pb.StartNew(len(filesToProcess))
+	bar.SetTemplate(`{{ green "Processing:" }} {{ bar . "<" "=" (cycle . "↖" "↗" "↘" "↙" ) "." ">"}} {{percent . }} {{counters . }} {{speed . "%s files/sec" }} {{ "ETA:" }} {{rtime . "%s"}}`)
+	bar.SetWidth(80)
+
 	for _, filePath := range filesToProcess {
 		fileRelativePath, _ := filepath.Rel(baseLocationPath, filePath)
+
+		// Update progress bar with current file
+		bar.Set("prefix", fmt.Sprintf("📄 %s", truncatePath(fileRelativePath, 50)))
 
 		// Compute hash
 		file, err := os.Open(filePath)
 		if err != nil {
-			fmt.Printf("Error opening file '%s': %v\n", filePath, err)
+			fmt.Printf("\nError opening file '%s': %v\n", filePath, err)
 			errorCount++
+			bar.Increment()
 			continue
 		}
 		defer file.Close()
 
 		hash := md5.New()
 		if _, err := io.Copy(hash, file); err != nil {
-			fmt.Printf("Error hashing file '%s': %v\n", filePath, err)
+			fmt.Printf("\nError hashing file '%s': %v\n", filePath, err)
 			errorCount++
+			bar.Increment()
 			continue
 		}
 		fileContentHash := fmt.Sprintf("%x", hash.Sum(nil))
 
 		if !md5Pattern.MatchString(fileContentHash) {
-			fmt.Printf("Generated hash '%s' for file '%s' is not a valid MD5 format. Skipping.\n", fileContentHash, filePath)
+			fmt.Printf("\nGenerated hash '%s' for file '%s' is not a valid MD5 format. Skipping.\n", fileContentHash, filePath)
 			errorCount++
+			bar.Increment()
 			continue
 		}
 
@@ -202,9 +216,20 @@ func NewMD5Hashes(regenerateAll bool) {
 		infoData.LastContentUpdate = currentTime
 		checksumDB[fileContentHash] = infoData
 		processedFilesCount++
+		bar.Increment()
 	}
 
+	// Finish progress bar
+	bar.Finish()
+	fmt.Println()
+
 	// Prune missing paths across all entries
+	fmt.Println("Pruning missing files from database...")
+	totalEntries := len(checksumDB)
+	pruneBar := pb.StartNew(totalEntries)
+	pruneBar.SetTemplate(`{{ green "Pruning:" }} {{ bar . "<" "=" ">" "." ">"}} {{percent . }} {{counters . }}`)
+	pruneBar.SetWidth(80)
+
 	for hash, infoData := range checksumDB {
 		var newPaths []PathEntry
 		for _, p := range infoData.RelativePaths {
@@ -221,7 +246,10 @@ func NewMD5Hashes(regenerateAll bool) {
 			infoData.RelativePaths = newPaths
 			checksumDB[hash] = infoData
 		}
+		pruneBar.Increment()
 	}
+	pruneBar.Finish()
+	fmt.Println()
 
 	// Save the database (compressed)
 	checksumFilePath = filepath.Join(baseLocationPath, checksumFileName)
@@ -279,4 +307,18 @@ func findPathEntry(paths []PathEntry, path string) *PathEntry {
 		}
 	}
 	return nil
+}
+
+// truncatePath truncates a file path to a maximum length for display
+func truncatePath(path string, maxLen int) string {
+	if len(path) <= maxLen {
+		return path
+	}
+	// Show beginning and end of path
+	if maxLen < 10 {
+		return path[:maxLen]
+	}
+	prefixLen := (maxLen - 3) / 2
+	suffixLen := maxLen - 3 - prefixLen
+	return path[:prefixLen] + "..." + path[len(path)-suffixLen:]
 }

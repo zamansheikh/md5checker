@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="MD5 Hash Checker - Fast, efficient file integrity verification tool with content-addressable storage. Cross-platform support for Windows, Linux, and macOS.">
+    <meta name="keywords"
+        content="MD5, checksum, file integrity, verification, content-addressable storage, cross-platform">
+    <meta name="author" content="Md. Shamsuzzaman">
+    <title>MD5 Hash Checker - File Integrity Verification Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <span class="logo">🔐</span>
+                    <span class="brand-name">MD5 Hash Checker</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#downloads">Downloads</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#documentation">Docs</a></li>
+                    <li><a href="https://github.com/zamansheikh/md5checker" target="_blank"
+                            class="btn-github">GitHub</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hero-content container">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Secure File Integrity
+                    <span class="gradient-text">Made Simple</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Fast, efficient, and user-friendly file verification tool with content-addressable storage.
+                    Track, verify, and protect your files across all platforms.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#downloads" class="btn btn-primary">
+                        <span>⬇️</span> Download Now
+                    </a>
+                    <a href="https://github.com/zamansheikh/md5checker" target="_blank" class="btn btn-secondary">
+                        <span>📖</span> View on GitHub
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Platforms</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">v1.0.0</div>
+                        <div class="stat-label">Latest Version</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">MIT</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="btn-close"></span>
+                            <span class="btn-minimize"></span>
+                            <span class="btn-maximize"></span>
+                        </div>
+                        <div class="terminal-title">md5checker</div>
+                    </div>
+                    <div class="terminal-body">
+                        <pre><code><span class="prompt">$</span> ./md5checker
+<span class="output-cyan">=======================================
+         MD5 Hash Checker
+      (Content-Addressable)
+         Version v1.0.0
+=======================================</span>
+
+<span class="output-yellow">────────────────────────────────────────</span>
+ MD5 Hash Checker 
+<span class="output-yellow">────────────────────────────────────────</span>
+1. Add New Files to Database
+2. Regenerate All Checksums
+3. Verify File Integrity
+4. Show Manual/Instructions
+5. Exit
+<span class="output-yellow">────────────────────────────────────────</span>
+
+<span class="prompt">Choose an option:</span> <span class="cursor">█</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose MD5 Hash Checker?</h2>
+            <p class="section-subtitle">Powerful features designed for developers, system administrators, and data
+                professionals</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Content-Addressable Storage</h3>
+                    <p>Files with identical content share the same hash entry, regardless of name or location. Efficient
+                        deduplication built-in.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Compressed Database</h3>
+                    <p>All checksums stored in a single gzipped JSON file. Minimal disk usage with 70-80% size
+                        reduction.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Smart Detection</h3>
+                    <p>Automatically detects modifications, moves, renames, additions, and deletions with detailed
+                        reporting.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Dual Operation Modes</h3>
+                    <p>Add new files incrementally or regenerate all checksums for a fresh baseline. Flexible workflow
+                        options.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Cross-Platform</h3>
+                    <p>Pre-built binaries for Windows, Linux (AMD64/ARM64), and macOS (Intel/Apple Silicon).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Blazing Fast</h3>
+                    <p>Built with Go for maximum performance. Efficient file processing with automatic binary exclusion.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Three simple steps to secure file integrity</p>
+
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Generate Checksums</h3>
+                        <p>Choose to add new files or regenerate all checksums. The tool scans your directory and
+                            creates MD5 hashes for each file.</p>
+                        <div class="step-code">
+                            <code>$ ./md5checker<br>Choose option: <span class="highlight">1</span> (Add New Files)</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-arrow">→</div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Store in Database</h3>
+                        <p>All checksums are stored in a compressed, content-addressable database. Files with identical
+                            content share entries.</p>
+                        <div class="step-code">
+                            <code>✓ Database saved: <span class="highlight">checksums.json.gz</span><br>📊 Total entries: <span class="highlight">1,234</span></code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-arrow">→</div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Verify Integrity</h3>
+                        <p>Run verification anytime to detect changes, moves, or deletions. Get detailed reports with
+                            actionable insights.</p>
+                        <div class="step-code">
+                            <code>✅ OK: <span class="highlight">1,230</span> files<br>📝 MODIFIED: <span class="highlight-red">4</span> files</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="downloads" class="downloads">
+        <div class="container">
+            <h2 class="section-title">Download MD5 Hash Checker</h2>
+            <p class="section-subtitle">Choose your platform and get started in seconds</p>
+
+            <div class="download-cards">
+                <div class="download-card">
+                    <div class="download-icon">🪟</div>
+                    <h3>Windows</h3>
+                    <p class="download-version">v1.0.0 • 64-bit</p>
+                    <a href="https://github.com/zamansheikh/md5checker/releases/download/v1.0.0/md5checker-windows-amd64_v1.0.0.exe"
+                        class="btn btn-download">
+                        <span>⬇️</span> Download for Windows
+                    </a>
+                    <p class="download-size">~8 MB</p>
+                </div>
+
+                <div class="download-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="download-icon">🐧</div>
+                    <h3>Linux</h3>
+                    <p class="download-version">v1.0.0 • AMD64</p>
+                    <a href="https://github.com/zamansheikh/md5checker/releases/download/v1.0.0/md5checker-linux-amd64_v1.0.0"
+                        class="btn btn-download btn-primary">
+                        <span>⬇️</span> Download for Linux
+                    </a>
+                    <p class="download-size">~8 MB</p>
+                    <div class="download-note">
+                        <strong>ARM64 version:</strong>
+                        <a
+                            href="https://github.com/zamansheikh/md5checker/releases/download/v1.0.0/md5checker-linux-arm64_v1.0.0">Download</a>
+                    </div>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">🍎</div>
+                    <h3>macOS</h3>
+                    <p class="download-version">v1.0.0 • Universal</p>
+                    <a href="https://github.com/zamansheikh/md5checker/releases/download/v1.0.0/md5checker-darwin-amd64_v1.0.0"
+                        class="btn btn-download">
+                        <span>⬇️</span> Download for macOS
+                    </a>
+                    <p class="download-size">~8 MB</p>
+                    <div class="download-note">
+                        <strong>Intel:</strong> <a
+                            href="https://github.com/zamansheikh/md5checker/releases/download/v1.0.0/md5checker-darwin-amd64_v1.0.0">AMD64</a>
+                        •
+                        <strong>Apple Silicon:</strong> <a
+                            href="https://github.com/zamansheikh/md5checker/releases/download/v1.0.0/md5checker-darwin-arm64_v1.0.0">ARM64</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-instructions">
+                <h3>Quick Installation</h3>
+                <div class="instructions-grid">
+                    <div class="instruction">
+                        <h4>Windows</h4>
+                        <code>1. Download the .exe file<br>2. Run md5checker-windows-amd64_v1.0.0.exe<br>3. That's it!</code>
+                    </div>
+                    <div class="instruction">
+                        <h4>Linux / macOS</h4>
+                        <code>$ chmod +x md5checker-*<br>$ ./md5checker-linux-amd64_v1.0.0<br># Start using!</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div class="container">
+            <h2 class="section-title">Perfect For</h2>
+            <div class="use-cases-grid">
+                <div class="use-case">
+                    <div class="use-case-icon">👨‍💻</div>
+                    <h3>Software Development</h3>
+                    <p>Verify build artifacts, track source code changes, and ensure deployment integrity.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">💾</div>
+                    <h3>Data Archival</h3>
+                    <p>Monitor long-term storage integrity, detect bit rot, and verify backup completeness.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🛡️</div>
+                    <h3>System Administration</h3>
+                    <p>Audit critical system files, detect unauthorized changes, and maintain compliance.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🔬</div>
+                    <h3>Digital Forensics</h3>
+                    <p>Track file changes, maintain chain of custody, and document evidence integrity.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">📸</div>
+                    <h3>Media Libraries</h3>
+                    <p>Detect duplicate photos/videos, track file moves, and organize collections.</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🎓</div>
+                    <h3>Academic Research</h3>
+                    <p>Verify dataset integrity, track research data changes, and ensure reproducibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="documentation">
+        <div class="container">
+            <h2 class="section-title">Documentation</h2>
+            <div class="docs-grid">
+                <a href="https://github.com/zamansheikh/md5checker#quick-start" target="_blank" class="doc-card">
+                    <div class="doc-icon">🚀</div>
+                    <h3>Quick Start Guide</h3>
+                    <p>Get up and running in minutes with our comprehensive guide.</p>
+                </a>
+                <a href="https://github.com/zamansheikh/md5checker#how-it-works" target="_blank" class="doc-card">
+                    <div class="doc-icon">📖</div>
+                    <h3>How It Works</h3>
+                    <p>Deep dive into content-addressable storage and architecture.</p>
+                </a>
+                <a href="https://github.com/zamansheikh/md5checker#faq" target="_blank" class="doc-card">
+                    <div class="doc-icon">❓</div>
+                    <h3>FAQ</h3>
+                    <p>Common questions and answers about MD5 Hash Checker.</p>
+                </a>
+                <a href="https://github.com/zamansheikh/md5checker#contributing" target="_blank" class="doc-card">
+                    <div class="doc-icon">🤝</div>
+                    <h3>Contributing</h3>
+                    <p>Help improve the project with code, docs, or bug reports.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Secure Your Files?</h2>
+            <p>Download MD5 Hash Checker today and start protecting your data integrity.</p>
+            <div class="cta-buttons">
+                <a href="#downloads" class="btn btn-primary btn-large">
+                    <span>⬇️</span> Download Now
+                </a>
+                <a href="https://github.com/zamansheikh/md5checker" target="_blank" class="btn btn-secondary btn-large">
+                    <span>⭐</span> Star on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo">🔐</span>
+                        <span class="brand-name">MD5 Hash Checker</span>
+                    </div>
+                    <p>Fast, efficient file integrity verification with content-addressable storage.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/zamansheikh" target="_blank" title="GitHub">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                        </a>
+                        <a href="https://facebook.com/zamansheikh.404" target="_blank" title="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/in/zamansheikh" target="_blank" title="LinkedIn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#downloads">Downloads</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker/releases"
+                                    target="_blank">Releases</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker#roadmap" target="_blank">Roadmap</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://github.com/zamansheikh/md5checker#documentation"
+                                    target="_blank">Documentation</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker#faq" target="_blank">FAQ</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker#use-cases" target="_blank">Use
+                                    Cases</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker#contributing"
+                                    target="_blank">Contributing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/zamansheikh/md5checker" target="_blank">GitHub</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker/issues" target="_blank">Report
+                                    Bug</a></li>
+                            <li><a href="https://github.com/zamansheikh/md5checker/issues" target="_blank">Request
+                                    Feature</a></li>
+                            <li><a href="https://github.com/zamansheikh" target="_blank">Developer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Md. Shamsuzzaman. Licensed under MIT License.</p>
+                <p>Made with ❤️ for the open source community</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -855,6 +855,12 @@ section {
     .download-cards {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
+
+    .footer-links {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+    }
 }
 
 /* Mobile devices */
@@ -1184,6 +1190,12 @@ section {
         flex-direction: column;
         gap: 2rem;
         margin-bottom: 2rem;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 
     .footer-brand {
